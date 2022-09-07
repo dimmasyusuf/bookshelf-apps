@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reading Room - Dicoding Course Submission</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+  <!-- Google Icon -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1 class="logo">Reading Room</h1>
+  </header>
+  <main>
+    <div id="search-input">
+
+      <!-- Search Section -->
+      <section class="search">
+        <form id="searchBook">
+          <input type="text" id="searchBookTitle" placeholder="Search Books">
+          <button type="submit" id="searchSubmit"><span class="material-symbols-outlined md-36">search</span></button>
+        </form>
+      </section>
+
+      <section class="input">
+        <div class="input-unread">
+          <button class="input-unread-btn"><span class="material-symbols-outlined md-36">bookmark</span></button>
+          <div class="input-content">
+            <span>0</span>
+            <h3>Unread Book</h3>
+          </div>
+        </div>
+        <div class="input-read">
+          <button class="input-read-btn"><span class="material-symbols-outlined md-36">menu_book</span></button>
+          <div class="input-content">
+            <span>0</span>
+            <h3>Read Book</h3>
+          </div>
+        </div>
+        <div class="input-add">
+          <button id="openForm" class="input-add-btn"><span
+              class="material-symbols-outlined md-36">add_circle</span></button>
+          <h3>Add Book</h3>
+        </div>
+
+        <div class="overlay" id="overlayForm">
+          <span id="closeForm" class="material-symbols-outlined">close</span>
+          <div class="input-form">
+            <h2>Add Book</h2>
+            <form id="inputBook">
+              <input type="text" id="inputBookTitle" placeholder="Book Title" required>
+              <input type="text" id="inputBookAuthor" placeholder="Book Author" required>
+              <input type="number" id="inputBookYear" placeholder="Book Year" required>
+              <div class="input-inline">
+                <input type="checkbox" id="inputBookIsComplete">
+                <label for="inputBookIsComplete">Finished Reading</label>
+              </div>
+              <button type="submit" id="bookSubmit">Submit</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div id="content">
+
+      <section class="bookshelf-unread">
+        <h2>Unread</h2>
+
+        <div id="incompleteBookshelf" class="book-list">
+          <article class="book">
+            <div class="book-img">
+              <img src="assets/images/dicoding1.png" alt="Book Image" class="book-img">
+            </div>
+            <div class="book-item">
+              <div class="book-content">
+                <h3>Book Title</h3>
+                <p>John Doe</p>
+                <p>2020</p>
+              </div>
+
+              <div class="book-action">
+                <button class="read-btn"><span class="material-symbols-outlined md-36">menu_book</span></button>
+                <button class="remove-btn"><span class="material-symbols-outlined md-36">delete</span></button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="bookshelf-read">
+        <h2>Read</h2>
+
+        <div id="completeBookshelf" class="book-list">
+          <article class="book">
+            <div class="book-img">
+              <img src="assets/images/dicoding1.png" alt="Book Image" class="book-img">
+            </div>
+            <div class="book-item">
+              <div class="book-content">
+                <h3>Book Title</h3>
+                <p>John Doe</p>
+                <p>2020</p>
+              </div>
+
+              <div class="book-action">
+                <button class="unread-btn"><span class="material-symbols-outlined md-36">bookmark</span></button>
+                <button class="remove-btn"><span class="material-symbols-outlined md-36">delete</span></button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>
