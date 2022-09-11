@@ -36,14 +36,14 @@
         <div class="input-unread">
           <button class="input-unread-btn"><span class="material-symbols-outlined md-36">bookmark</span></button>
           <div class="input-content">
-            <span>0</span>
+            <span id="totalUnreadBook">0</span>
             <h3>Unread Book</h3>
           </div>
         </div>
         <div class="input-read">
           <button class="input-read-btn"><span class="material-symbols-outlined md-36">menu_book</span></button>
           <div class="input-content">
-            <span>0</span>
+            <span id="totalReadBook">0</span>
             <h3>Read Book</h3>
           </div>
         </div>
@@ -63,7 +63,7 @@
               <input type="number" id="inputBookYear" placeholder="Book Year" required>
               <div class="input-inline">
                 <input type="checkbox" id="inputBookIsComplete">
-                <label for="inputBookIsComplete">Finished Reading</label>
+                <label for="inputBookIsCompleted">Finished Reading</label>
               </div>
               <button type="submit" id="bookSubmit">Submit</button>
             </form>
@@ -78,48 +78,31 @@
       <section class="bookshelf-unread">
         <h2>Unread</h2>
 
-        <div id="incompleteBookshelf" class="book-list">
-          <article class="book">
+        <div id="incompleteBook" class="book-list">
+          <!-- <article class="book">
             <div class="book-img">
-              <img src="assets/images/dicoding1.png" alt="Book Image" class="book-img">
+              <img id="bookImage" src="assets/images/dicoding1.png" alt="Book Image" class="book-img">
             </div>
             <div class="book-item">
               <div class="book-content">
-                <h3>Book Title</h3>
-                <p>John Doe</p>
-                <p>2020</p>
+                <h3>The Potato Day</h3>
+                <p>Dimas Yusuf Qurohman</p>
+                <p>2022</p>
               </div>
 
               <div class="book-action">
-                <button class="read-btn"><span class="material-symbols-outlined md-36">menu_book</span></button>
+                <button class="read-btn"><span class="material-symbols-outlined md-36">check_circle</span></button>
                 <button class="remove-btn"><span class="material-symbols-outlined md-36">delete</span></button>
               </div>
             </div>
-          </article>
+          </article> -->
         </div>
       </section>
 
       <section class="bookshelf-read">
         <h2>Read</h2>
 
-        <div id="completeBookshelf" class="book-list">
-          <article class="book">
-            <div class="book-img">
-              <img src="assets/images/dicoding1.png" alt="Book Image" class="book-img">
-            </div>
-            <div class="book-item">
-              <div class="book-content">
-                <h3>Book Title</h3>
-                <p>John Doe</p>
-                <p>2020</p>
-              </div>
-
-              <div class="book-action">
-                <button class="unread-btn"><span class="material-symbols-outlined md-36">bookmark</span></button>
-                <button class="remove-btn"><span class="material-symbols-outlined md-36">delete</span></button>
-              </div>
-            </div>
-          </article>
+        <div id="completeBook" class="book-list">
         </div>
       </section>
     </div>

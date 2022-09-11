@@ -196,7 +196,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #f0f2f5;
+  background-color: #0000001A;
   display: none;
   flex-direction: column;
   justify-content: center;
@@ -226,7 +226,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: white;
-  width: 45%;
+  width: 35%;
   border-radius: 20px;
   box-shadow: 0 0 10px #0000001A;
   margin: auto;
@@ -383,7 +383,6 @@ form button:hover {
 .book-list {
   display: flex;
   flex-direction: row;
-  align-items: center;
   flex-wrap: wrap;
   margin: 0;
   width: 100%;
@@ -394,6 +393,7 @@ form button:hover {
   flex-direction: column;
   align-items: flex-start;
   margin: 0 30px;
+  width: 200px;
   border-radius: 10px;
   background-color: white;
 }
@@ -419,7 +419,7 @@ form button:hover {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 15px 0 30px;
+  margin: 10px 0 30px;
 }
 
 .book-content h3,
