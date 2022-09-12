@@ -1,15 +1,15 @@
 /*
 OVERLAY FORM
 */
-
 const openForm = document.getElementById('openForm');
+const closeForm = document.getElementById('closeForm');
+
 openForm.addEventListener('click', function () {
   document.getElementById('overlayForm').style.display = 'flex';
 }
 );
 
-const close = document.getElementById('closeForm');
-close.addEventListener('click', function () {
+closeForm.addEventListener('click', function () {
   document.getElementById('overlayForm').style.display = 'none'
 }
 );
@@ -19,19 +19,8 @@ BOOK
 */
 const storeData = [];
 const RENDER_EVENT = 'render-book';
-
 const UNREAD_BOOK_ID = 'incompleteBook';
 const READ_BOOK_ID = 'completeBook';
-
-// SUBMIT
-document.addEventListener('DOMContentLoaded', function () {
-  let bookSubmit = document.getElementById('inputBook');
-  bookSubmit.addEventListener('submit', function (event) {
-    event.preventDefault();
-    document.getElementById('overlayForm').style.display = 'none'
-    addBook();
-  });
-});
 
 // ADD BOOK
 function addBook() {
@@ -45,22 +34,36 @@ function addBook() {
   storeData.push(bookObject);
 
   document.dispatchEvent(new Event(RENDER_EVENT));
+
+  saveData();
+  unreadBookLength();
+  readBookLength();
 }
 
-function generateId() {
-  return +new Date();
-}
+// SUBMIT
+document.addEventListener('DOMContentLoaded', function () {
+  let bookSubmit = document.getElementById('inputBook');
+  bookSubmit.addEventListener('submit', function (event) {
+    event.preventDefault();
+    addBook();
+    removeInput();
+  });
 
-function makeBookObject(id, title, author, year, isCompleted) {
-  return {
-    id,
-    title,
-    author,
-    year,
-    isCompleted
+  if (storageExist()) {
+    loadData();
   }
+});
+
+// REMOVE INPUT
+function removeInput() {
+  document.getElementById('inputBookTitle').value = '';
+  document.getElementById('inputBookAuthor').value = '';
+  document.getElementById('inputBookYear').value = '';
+  document.getElementById('inputBookIsComplete').checked = false;
+  document.getElementById('overlayForm').style.display = 'none';
 }
 
+// RENDER BOOK
 document.addEventListener(RENDER_EVENT, () => {
   const unreadBook = document.getElementById(UNREAD_BOOK_ID);
   const readBook = document.getElementById(READ_BOOK_ID);
@@ -75,11 +78,25 @@ document.addEventListener(RENDER_EVENT, () => {
       unreadBook.append(bookElement);
     else
       readBook.append(bookElement);
-
   }
 });
 
-// NEW BOOK
+// BOOK OBJECT
+function generateId() {
+  return +new Date();
+}
+
+function makeBookObject(id, title, author, year, isCompleted) {
+  return {
+    id,
+    title,
+    author,
+    year,
+    isCompleted
+  }
+}
+
+// CREATE BOOK
 function newBook(bookObject) {
   const image = document.createElement('img');
   if (bookObject.isCompleted) {
@@ -178,6 +195,7 @@ function newBook(bookObject) {
   return bookList;
 }
 
+// ADD READ BOOK
 function addReadBook(bookId) {
   const bookTarget = findBook(bookId);
 
@@ -185,6 +203,22 @@ function addReadBook(bookId) {
 
   bookTarget.isCompleted = true;
   document.dispatchEvent(new Event(RENDER_EVENT));
+  saveData();
+  unreadBookLength();
+  readBookLength();
+}
+
+// ADD UNREAD BOOK
+function addUnreadBook(bookId) {
+  const bookTarget = findBook(bookId);
+
+  if (bookTarget == null) return;
+
+  bookTarget.isCompleted = false;
+  document.dispatchEvent(new Event(RENDER_EVENT));
+  saveData();
+  unreadBookLength();
+  readBookLength();
 }
 
 function findBook(bookId) {
@@ -196,15 +230,7 @@ function findBook(bookId) {
   return null;
 }
 
-function addUnreadBook(bookId) {
-  const bookTarget = findBook(bookId);
-
-  if (bookTarget == null) return;
-
-  bookTarget.isCompleted = false;
-  document.dispatchEvent(new Event(RENDER_EVENT));
-}
-
+// REMOVE BOOK
 function removeBook(bookId) {
   const bookTarget = findBookIndex(bookId);
 
@@ -212,6 +238,9 @@ function removeBook(bookId) {
 
   storeData.splice(bookTarget, 1);
   document.dispatchEvent(new Event(RENDER_EVENT));
+  saveData();
+  unreadBookLength();
+  readBookLength();
 }
 
 function findBookIndex(bookId) {
@@ -224,5 +253,94 @@ function findBookIndex(bookId) {
 }
 
 /*
-Storage
+BOOK LENGTH
 */
+
+function unreadBookLength() {
+  const totalUnreadBook = document.getElementById('totalUnreadBook');
+  let count = 0;
+
+  for (const book of storeData) {
+    if (!book.isCompleted) {
+      count++;
+    }
+  }
+
+  totalUnreadBook.innerText = count;
+
+  return count;
+}
+
+function readBookLength() {
+  const totalReadBook = document.getElementById('totalReadBook');
+  let count = 0;
+
+  for (const book of storeData) {
+    if (book.isCompleted) {
+      count++;
+    }
+  }
+
+  totalReadBook.innerText = count;
+
+  return count;
+}
+
+/*
+SEARCH BOOK
+*/
+
+const searchBook = document.getElementById('searchBookTitle');
+
+searchBook.addEventListener('keyup', function (event) {
+  const searchValue = event.target.value.toLowerCase();
+  const books = document.querySelectorAll('.book-list article');
+
+  books.forEach((book) => {
+    const bookTitle = book.querySelector('.book-content h3').innerText.toLowerCase();
+    if (bookTitle.includes(searchValue)) {
+      book.style.display = 'flex';
+    } else {
+      book.style.display = 'none';
+    }
+  });
+});
+
+/*
+STORAGE
+*/
+const STORAGE_KEY = 'READING_ROOM';
+const SAVED_EVENT = 'saved-book';
+
+function storageExist() {
+  if (typeof (Storage) === undefined) {
+    alert('Your browser does not support local storage.');
+    return false;
+  }
+  return true;
+}
+
+function saveData() {
+  if (storageExist()) {
+    const parsed = JSON.stringify(storeData);
+    localStorage.setItem(STORAGE_KEY, parsed);
+    document.dispatchEvent(new Event('SAVED_EVENT'));
+  }
+}
+
+document.addEventListener(SAVED_EVENT, function () {
+  console.log(localStorage.getItem(STORAGE_KEY));
+});
+
+function loadData() {
+  const serializedData = localStorage.getItem(STORAGE_KEY);
+  let data = JSON.parse(serializedData);
+
+  if (data !== null) {
+    for (const book of data) {
+      storeData.push(book);
+    }
+  }
+
+  document.dispatchEvent(new Event(RENDER_EVENT));
+}

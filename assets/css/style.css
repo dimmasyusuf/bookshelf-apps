@@ -17,6 +17,10 @@
   font-size: 48px;
 }
 
+.material-symbols-outlined.md-150 {
+  font-size: 150px;
+}
+
 * {
   margin: 0;
   padding: 0;
