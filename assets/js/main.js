@@ -306,6 +306,12 @@ searchBook.addEventListener('keyup', function (event) {
   });
 });
 
+const searchSubmit = document.getElementById('searchSubmit');
+
+searchSubmit.addEventListener('click', function (event) {
+  event.preventDefault();
+});
+
 /*
 STORAGE
 */
